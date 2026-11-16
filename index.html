@@ -35,7 +35,14 @@
       color: var(--ink);
       line-height: 1.5;
     }
-    .wrap { max-width: 880px; margin: 0 auto; padding: 48px 20px 64px; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 24px 20px 64px; }
+
+    nav { display: flex; gap: 6px; margin-bottom: 32px; }
+    nav a {
+      color: var(--muted); text-decoration: none; padding: 6px 12px; border-radius: 999px; font-size: 15px;
+    }
+    nav a:hover { color: var(--ink); background: var(--card); }
+    nav a[aria-current="page"] { color: var(--ink); background: var(--card); border: 1px solid var(--line); }
 
     header { margin-bottom: 40px; }
     .eyebrow {
@@ -94,6 +101,11 @@
 </head>
 <body>
   <div class="wrap">
+    <nav aria-label="Hauptnavigation">
+      <a href="./" aria-current="page">Wetter</a>
+      <a href="kurs.html">Bank WIR</a>
+    </nav>
+
     <header>
       <div class="eyebrow"><span class="flag" aria-hidden="true"></span> Bottmingen · Basel-Landschaft</div>
       <h1>Hallo, ich bin Ulrich.</h1>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ulrich Berger · Beteiligungsschein Bank WIR</title>
+  <meta name="description" content="Aktueller Kurs des Beteiligungsscheins der WIR Bank Genossenschaft.">
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --card: #ffffff;
+      --ink: #1f2a33;
+      --muted: #6b7680;
+      --accent: #c8102e;
+      --line: #e3ded3;
+      --up: #1a7f4b;
+      --down: #c8102e;
+      --chart: #2f6fb0;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14181c;
+        --card: #1d2329;
+        --ink: #eef1f3;
+        --muted: #9aa5ae;
+        --line: #2c343c;
+        --up: #4cc38a;
+        --down: #f07178;
+        --chart: #78aee6;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 24px 20px 64px; }
+
+    nav { display: flex; gap: 6px; margin-bottom: 32px; }
+    nav a {
+      color: var(--muted); text-decoration: none; padding: 6px 12px; border-radius: 999px; font-size: 15px;
+    }
+    nav a:hover { color: var(--ink); background: var(--card); }
+    nav a[aria-current="page"] { color: var(--ink); background: var(--card); border: 1px solid var(--line); }
+
+    header { margin-bottom: 32px; }
+    .eyebrow { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    h1 { font-size: clamp(30px, 5.5vw, 44px); line-height: 1.1; margin: 10px 0 8px; letter-spacing: -0.02em; }
+    .lead { color: var(--muted); font-size: 17px; margin: 0; }
+
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 28px; }
+    .price-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
+    .price { font-size: 60px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+    .price small { font-size: 22px; font-weight: 600; color: var(--muted); margin-left: 6px; }
+    .change { font-size: 18px; font-weight: 600; }
+    .up { color: var(--up); }
+    .down { color: var(--down); }
+    .flat { color: var(--muted); }
+    .asof { color: var(--muted); margin-top: 10px; font-size: 15px; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 16px; }
+    .stat { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+    .stat-label { color: var(--muted); font-size: 13px; }
+    .stat-value { font-size: 20px; font-weight: 650; margin-top: 4px; }
+
+    h2 { font-size: 20px; margin: 36px 0 14px; }
+    .chart-card { padding: 20px 20px 12px; }
+    #chart svg { width: 100%; height: auto; display: block; }
+    .chart-note { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+
+    .ids { color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 16px; }
+    .ids b { color: var(--ink); font-weight: 600; }
+
+    .status { color: var(--muted); text-align: center; padding: 20px; }
+    .error { color: var(--accent); }
+
+    footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+    footer a { color: inherit; }
+
+    @media (max-width: 720px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .price { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav aria-label="Hauptnavigation">
+      <a href="./">Wetter</a>
+      <a href="kurs.html" aria-current="page">Bank WIR</a>
+    </nav>
+
+    <header>
+      <div class="eyebrow">Beteiligungsschein · WIR Bank Genossenschaft</div>
+      <h1>Kurs Bank WIR</h1>
+      <p class="lead">Der aktuelle Kurs des Beteiligungsscheins der WIR Bank Genossenschaft an der Handelsplattform BEKB OTC-X.</p>
+    </header>
+
+    <section class="card" aria-live="polite">
+      <div id="quote"><div class="status">Kursdaten werden geladen …</div></div>
+    </section>
+
+    <div id="stats" class="stats"></div>
+
+    <section>
+      <h2>Verlauf der letzten 12 Monate</h2>
+      <div class="card chart-card">
+        <div id="chart"></div>
+        <p class="chart-note">Wöchentliche Werte (Geldkurs am Ende der Woche), Quelle: BEKB OTC-X.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p id="updated"></p>
+      <p>Daten: <a href="https://www.otc-x.ch/security/CH1204218437" target="_blank" rel="noopener">BEKB OTC-X</a>. Der Beteiligungsschein wird auch über das interne Handelssystem der Bank WIR (OHS-WIR) gehandelt; dort können die Kurse abweichen. Keine Anlageberatung, alle Angaben ohne Gewähr.</p>
+    </footer>
+  </div>
+
+  <script>
+    const chf = new Intl.NumberFormat("de-CH", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const pct = new Intl.NumberFormat("de-CH", { style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2, signDisplay: "always" });
+    const signed = n => (n > 0 ? "+" : n < 0 ? "−" : "±") + chf.format(Math.abs(n));
+    const fmtDateTime = new Intl.DateTimeFormat("de-CH", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Zurich" });
+    const fmtShort = new Intl.DateTimeFormat("de-CH", { month: "short", year: "2-digit" });
+    const trend = n => n > 0 ? "up" : n < 0 ? "down" : "flat";
+    const val = n => n == null ? "–" : chf.format(n);
+
+    function renderQuote(s) {
+      const cls = trend(s.priceChangeYtd);
+      document.getElementById("quote").innerHTML = `
+        <div class="price-row">
+          <div class="price">${chf.format(s.lastPrice)}<small>CHF</small></div>
+          <div class="change ${cls}">${signed(s.priceChangeYtd)} CHF (${pct.format(s.performanceYtd)}) seit Jahresbeginn</div>
+        </div>
+        <div class="asof">Letzter Abschluss: ${fmtDateTime.format(new Date(s.lastDate))}</div>
+        <div class="ids">
+          <span>Valor <b>${s.valor.toLocaleString("de-CH")}</b></span>
+          <span>ISIN <b>${s.isin}</b></span>
+          <span>Branche <b>${s.sector}</b></span>
+        </div>`;
+    }
+
+    function renderStats(s, highLow) {
+      const year = highLow.find(h => h.period === 365) || {};
+      const items = [
+        ["Geld (Bid)", val(s.bidPricePoint) + " CHF"],
+        ["Brief (Ask)", val(s.askPricePoint) + " CHF"],
+        ["Tief 12 Monate", val(year.lowPrice) + " CHF"],
+        ["Hoch 12 Monate", val(year.highPrice) + " CHF"]
+      ];
+      document.getElementById("stats").innerHTML = items.map(([label, value]) => `
+        <div class="stat"><div class="stat-label">${label}</div><div class="stat-value">${value}</div></div>`).join("");
+    }
+
+    function renderChart(history) {
+      const pts = history.filter(p => p.price != null);
+      if (pts.length < 2) { document.getElementById("chart").innerHTML = '<div class="status">Zu wenige Daten für ein Diagramm.</div>'; return; }
+
+      const W = 800, H = 260, padL = 52, padR = 12, padT = 12, padB = 30;
+      const prices = pts.map(p => p.price);
+      let min = Math.min(...prices), max = Math.max(...prices);
+      const margin = Math.max((max - min) * 0.15, 2);
+      min = Math.floor(min - margin); max = Math.ceil(max + margin);
+      const x = i => padL + (i / (pts.length - 1)) * (W - padL - padR);
+      const y = v => padT + (1 - (v - min) / (max - min)) * (H - padT - padB);
+
+      const line = pts.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(p.price).toFixed(1)}`).join(" ");
+      const area = `${line} L${x(pts.length - 1).toFixed(1)},${H - padB} L${x(0).toFixed(1)},${H - padB} Z`;
+
+      const ticks = 4, grid = [];
+      for (let t = 0; t <= ticks; t++) {
+        const v = min + (t / ticks) * (max - min);
+        grid.push(`<line x1="${padL}" x2="${W - padR}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" />
+                   <text x="${padL - 8}" y="${y(v) + 4}" text-anchor="end" font-size="12" fill="var(--muted)">${Math.round(v)}</text>`);
+      }
+      const labels = [];
+      const step = Math.max(1, Math.round(pts.length / 6));
+      for (let i = 0; i < pts.length; i += step) {
+        const [yy, mm, dd] = pts[i].date.split("-").map(Number);
+        labels.push(`<text x="${x(i)}" y="${H - 8}" text-anchor="middle" font-size="12" fill="var(--muted)">${fmtShort.format(new Date(yy, mm - 1, dd))}</text>`);
+      }
+      const last = pts[pts.length - 1];
+
+      document.getElementById("chart").innerHTML = `
+        <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Kursverlauf des Beteiligungsscheins über 12 Monate, zuletzt ${chf.format(last.price)} CHF">
+          ${grid.join("")}
+          <path d="${area}" fill="var(--chart)" opacity="0.10" />
+          <path d="${line}" fill="none" stroke="var(--chart)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+          <circle cx="${x(pts.length - 1)}" cy="${y(last.price)}" r="4.5" fill="var(--chart)" />
+          ${labels.join("")}
+        </svg>`;
+    }
+
+    async function load() {
+      try {
+        const res = await fetch("data/wir-bs.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        renderQuote(data.security);
+        renderStats(data.security, data.highLow || []);
+        renderChart(data.history || []);
+        document.getElementById("updated").textContent = "Seite geladen: " + fmtDateTime.format(new Date());
+      } catch (err) {
+        document.getElementById("quote").innerHTML =
+          '<div class="status error">Die Kursdaten konnten nicht geladen werden. Bitte später nochmals versuchen.</div>';
+        console.error(err);
+      }
+    }
+    load();
+  </script>
+</body>
+</html>
