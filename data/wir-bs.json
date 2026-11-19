@@ -5,20 +5,20 @@
     "bidPricePoint": 483.000000,
     "inIndex": [
       {
-        "isin": "CH0213109793",
-        "name": "OTC-X Premium"
+        "isin": "CH0017915718",
+        "name": "OTC-X Banken"
       },
       {
         "isin": "CH0039576860",
         "name": "OTC-X Liquidity"
       },
       {
-        "isin": "CH0017915726",
-        "name": "OTC-X TOP50"
+        "isin": "CH0213109793",
+        "name": "OTC-X Premium"
       },
       {
-        "isin": "CH0017915718",
-        "name": "OTC-X Banken"
+        "isin": "CH0017915726",
+        "name": "OTC-X TOP50"
       }
     ],
     "isin": "CH1204218437",
