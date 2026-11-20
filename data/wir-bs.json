@@ -1,9 +1,13 @@
 {
   "security": {
     "allShareIndexWeight": 1.000000,
-    "askPricePoint": 485.000000,
-    "bidPricePoint": 483.000000,
+    "askPricePoint": 487.000000,
+    "bidPricePoint": 485.000000,
     "inIndex": [
+      {
+        "isin": "CH0213109793",
+        "name": "OTC-X Premium"
+      },
       {
         "isin": "CH0017915718",
         "name": "OTC-X Banken"
@@ -13,20 +17,16 @@
         "name": "OTC-X Liquidity"
       },
       {
-        "isin": "CH0213109793",
-        "name": "OTC-X Premium"
-      },
-      {
         "isin": "CH0017915726",
         "name": "OTC-X TOP50"
       }
     ],
     "isin": "CH1204218437",
-    "lastDate": "2026-11-06T11:36:19.489Z",
-    "lastPrice": 483.000000,
+    "lastDate": "2026-11-20T11:35:45.527Z",
+    "lastPrice": 485.000000,
     "name": "WIR Bank BS N",
-    "performanceYtd": 0.0021,
-    "priceChangeYtd": 1.0000,
+    "performanceYtd": 0.0062,
+    "priceChangeYtd": 3.0000,
     "sector": "Banken",
     "shareType": "A",
     "tradeable": true,
@@ -35,13 +35,13 @@
   "highLow": [
     {
       "period": 7,
-      "lowPrice": null,
-      "highPrice": null
+      "lowPrice": 485.000000,
+      "highPrice": 485.000000
     },
     {
       "period": 30,
       "lowPrice": 483.000000,
-      "highPrice": 483.000000
+      "highPrice": 485.000000
     },
     {
       "period": 365,
